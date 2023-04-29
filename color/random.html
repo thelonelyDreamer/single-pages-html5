@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机颜色</title>
+    <link rel="stylesheet" href="../reset.css">
+    <style>
+        .container {
+            display: flex;
+            width: 900px;
+            height: 600px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            width: 300px;
+            height: 200px;
+        }
+        #change-button{
+            background-color: cadetblue;
+            color: white;
+            margin-bottom:8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <button id="change-button">改变颜色</button>
+    </div>
+    <div class="container">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+    </div>
+    <script>
+        function transform(num) {
+            if (num < 10) return '' + num
+            else return String.fromCodePoint(87 + num)
+
+        }
+        function handle() {
+            boxes = document.getElementsByClassName("box")
+            for (var i = 0; i < boxes.length; i++) {
+                var element = boxes[i]
+                var colorValue = "#"
+                for (var j = 0; j < 3; j++) {
+                    var value = Math.floor(Math.random() * 256)
+                    var temp = value % 16
+                    colorValue = colorValue + transform((value - temp) / 16) + transform(temp)
+                }
+                element.style.backgroundColor = colorValue
+            }
+        }
+        handle()
+        boxes = document.getElementsByClassName("box")
+            for (var i = 0; i < boxes.length; i++) {
+                boxes[i].addEventListener('dblclick',function(e){
+                    alert(e.srcElement.style.backgroundColor)
+                })
+            }
+        document.getElementById('change-button').addEventListener('click',handle)
+
+    
+    </script>
+</body>
+
+</html>
